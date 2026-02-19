@@ -1,0 +1,43 @@
+services:
+  # --- Time-Series Database (InfluxDB v3 Core) ---
+  influxdb3-core:
+    image: influxdb:3-core
+    container_name: influxdb3
+    ports:
+      - "8181:8181"
+    environment:
+      - INFLUXDB_DATABASE=energy_monitoring
+      - INFLUXDB_TOKEN=apiv3_x5NcVKZ95dsdWOrm-iW2hGJfCwn1it1Tm55dA_vsdPkrsWYPprPgcBNnUNeYiZ0ioXMXUVcpUKyLoKhcQz9PQQ
+    command:
+      - influxdb3
+      - serve
+      - --node-id=energy_monitoring_node0
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3/data
+      - --plugin-dir=/var/lib/influxdb3/plugins 
+    volumes:
+      - ./.influxdb3/data:/var/lib/influxdb3/data
+      - ./.influxdb3/plugins:/var/lib/influxdb3/plugins
+
+  # --- Relational Database (PostgreSQL) ---
+  postgres:
+      image: postgres:18-alpine
+      container_name: postgres_db
+      shm_size: 128mb 
+      environment:
+        - POSTGRES_USER=admin
+        - POSTGRES_PASSWORD=admin123
+        - POSTGRES_DB=energy_monitoring
+      ports:
+        - "5432:5432"
+      volumes:
+        - ./postgres_data:/var/lib/postgresql
+
+  # --- MQTT Broker (Mosquitto) ---
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mqtt_broker
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf

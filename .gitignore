@@ -1,0 +1,16 @@
+.docs
+.influxdb3
+postgres_data
+
+node_modules
+dist
+
+drizzle
+
+.env
+
+*.log
+npm-debug.log*
+
+.DS_Store
+Thumbs.db
