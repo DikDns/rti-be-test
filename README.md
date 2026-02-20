@@ -94,6 +94,11 @@ Make sure you have the following installed on your local machine:
    npm install
    ```
 
+3. **Make sure you have the following environment variables set:**
+   ```bash
+   cp .env.example .env
+   ```
+
 ### Running the Application Locally
 
 1. **Start the Infrastructure (Databases & Broker)**
