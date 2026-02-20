@@ -130,4 +130,7 @@ Make sure you have the following installed on your local machine:
 To gracefully tear down the Docker containers:
 ```bash
 docker compose down
+
+# To remove the volumes as well
+docker compose down -v
 ```
