@@ -8,7 +8,6 @@ services:
       - "8181:8181"
     environment:
       - INFLUXDB_DATABASE=energy_monitoring
-      - INFLUXDB_TOKEN=apiv3_x5NcVKZ95dsdWOrm-iW2hGJfCwn1it1Tm55dA_vsdPkrsWYPprPgcBNnUNeYiZ0ioXMXUVcpUKyLoKhcQz9PQQ
     command:
       - influxdb3
       - serve
@@ -16,9 +15,11 @@ services:
       - --object-store=file
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins 
+      - --admin-token-file=/admin-token.json
     volumes:
       - influxdb3_data:/var/lib/influxdb3/data
       - influxdb3_plugins:/var/lib/influxdb3/plugins
+      - ./admin-token.json:/admin-token.json:ro
 
   # --- Relational Database (PostgreSQL) ---
   postgres:
