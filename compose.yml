@@ -3,6 +3,7 @@ services:
   influxdb3-core:
     image: influxdb:3-core
     container_name: influxdb3
+    user: root
     ports:
       - "8181:8181"
     environment:
@@ -23,6 +24,7 @@ services:
   postgres:
       image: postgres:18-alpine
       container_name: postgres_db
+      user: postgres
       shm_size: 128mb 
       environment:
         - POSTGRES_USER=admin
