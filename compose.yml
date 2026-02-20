@@ -16,8 +16,8 @@ services:
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins 
     volumes:
-      - ./.influxdb3/data:/var/lib/influxdb3/data
-      - ./.influxdb3/plugins:/var/lib/influxdb3/plugins
+      - influxdb3_data:/var/lib/influxdb3/data
+      - influxdb3_plugins:/var/lib/influxdb3/plugins
 
   # --- Relational Database (PostgreSQL) ---
   postgres:
@@ -31,7 +31,7 @@ services:
       ports:
         - "5432:5432"
       volumes:
-        - ./postgres_data:/var/lib/postgresql
+        - postgres_data:/var/lib/postgresql/data
 
   # --- MQTT Broker (Mosquitto) ---
   mosquitto:
@@ -41,3 +41,8 @@ services:
       - "1883:1883"
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+volumes:
+  influxdb3_data:
+  influxdb3_plugins:
+  postgres_data:
